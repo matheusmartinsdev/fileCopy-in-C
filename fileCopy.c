@@ -1,30 +1,32 @@
 #include <stdio.h>
-#include <locale.h>
 #include <stdlib.h>
 /*
 
-	Esse programinha copia o conteúdo binário de qualquer arquivo para um novo arquivo designado por linha de comando
-	Sua sintaxe é:
-		
-		.\copiaArquivo arquivoOriginal.extensao novoArquivo.extensao
-		-> Atenção nas extensões: se o arquivo original foi um .exe e o destino for .txt, obviamente não vai funcionar corretamente.
-	
-	
-	O programa funciona por linha de comando e necessita que sejam passados dois argumentos: 
-		1 - o arquivo original seguido de sua extensão;
-		2 - o nome do novo arquivo seguido de sua extensão;
+	This little program copies the binary content of any file to a new file designated by the command line
+
+	Syntax:
+		.\copyFile originalFile.extension newFile.extension
 
 */
 
 void main (int argc, char*argv[])
 {
-	setlocale(LC_ALL, "Portuguese");
 	FILE *fileIn, *fileOut;
 	int ch;
 	
+	
+	/* 
+		- argv[] is a vector of arguments
+		- argv[0] is the aplication dir
+		- argv[1] the first argument (original file)
+		- argv[2] the second argumento (new file to be created)
+	*/
+	
+	
+	// Case the program receive one or more than three arguments, an error message are display.
 	if (argc!=3)
 		{
-			printf("\n\nSintaxe -> .\\copiaArquivo arquivoOriginal.extensao novoArquivo.extensao\n\n É necessário dois argumentos!\n\n");
+			printf("\n\nTWO ARGUMENTS ARE NECESSARY!\n\nSintax:  .\\fileCopy originalFile.extension newFile.extension\n\n");
 		}
 	else
 		{
@@ -32,7 +34,7 @@ void main (int argc, char*argv[])
 			
 			if(fileIn==NULL)
 				{
-					printf("Impossivel abrir o arquivo %s\n", argv[1]);
+					printf("Fail to open %s\n", argv[1]);
 					exit(2);
 				}
 			
@@ -40,7 +42,7 @@ void main (int argc, char*argv[])
 			
 			if (fileOut==NULL)
 				{
-					printf("Nao foi possivel criar o arquivo %s\n", argv[2]);
+					printf("Fail to create the file %s\n", argv[2]);
 					exit(3);
 				}
 			
@@ -53,7 +55,8 @@ void main (int argc, char*argv[])
 			fclose(fileOut);
 		}
 	
-	printf("\n\n##############################\n\n%s copiado com sucesso para %s\n\n##############################", argv[1], argv[2]);
+	//Success message
+	printf("\n\n##############################\n\n%s successfully copied to %s\n\n##############################", argv[1], argv[2]);
 		
 	
 }
