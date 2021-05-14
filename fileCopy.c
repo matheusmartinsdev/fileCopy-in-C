@@ -25,35 +25,35 @@ void main (int argc, char*argv[])
 	
 	// Case the program receive one or more than three arguments, an error message are display.
 	if (argc!=3)
-		{
-			printf("\n\nTWO ARGUMENTS ARE NECESSARY!\n\nSintax:  .\\fileCopy originalFile.extension newFile.extension\n\n");
-		}
+	{
+		printf("\n\nTWO ARGUMENTS ARE NECESSARY!\n\nSintax:  .\\fileCopy originalFile.extension newFile.extension\n\n");
+	}
 	else
+	{
+		fileIn = fopen(argv[1], "rb");
+
+		if(fileIn==NULL)
 		{
-			fileIn = fopen(argv[1], "rb");
-			
-			if(fileIn==NULL)
-				{
-					printf("Fail to open %s\n", argv[1]);
-					exit(2);
-				}
-			
-			fileOut = fopen(argv[2], "wb");
-			
-			if (fileOut==NULL)
-				{
-					printf("Fail to create the file %s\n", argv[2]);
-					exit(3);
-				}
-			
-			while ((ch=fgetc(fileIn))!=EOF)
-				{
-					fputc(ch, fileOut);
-				}
-				
-			fclose(fileIn);
-			fclose(fileOut);
+			printf("Fail to open %s\n", argv[1]);
+			exit(2);
 		}
+
+		fileOut = fopen(argv[2], "wb");
+
+		if (fileOut==NULL)
+		{
+			printf("Fail to create the file %s\n", argv[2]);
+			exit(3);
+		}
+
+		while ((ch=fgetc(fileIn))!=EOF)
+		{
+			fputc(ch, fileOut);
+		}
+
+		fclose(fileIn);
+		fclose(fileOut);
+	}
 	
 	//Success message
 	printf("\n\n##############################\n\n%s successfully copied to %s\n\n##############################", argv[1], argv[2]);
